@@ -5,10 +5,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WeatherApp.Model;
+using WeatherApp.ViewModel.Helpers;
 
 namespace WeatherApp.ViewModel
 {
-    public class WeatherViewModel : INotifyPropertyChanged
+    // Using INotifyPropertyChanged, we don't have to access the element, text property etc and assign them thus reducing the amount of code.
+    public class WeatherViewModel : INotifyPropertyChanged 
     {
         private string query;
         public string Query
@@ -45,17 +47,15 @@ namespace WeatherApp.ViewModel
             }
         }
 
-        //public WeatherViewModel()
-        //{
-        //    selectedCity = new City
-        //    {
-        //        LocalizedName = "New York"
-        //    };
-        //}
+        public async void MakeQuery()
+        {
+            var cities = await AccuWeatherHelper.GetCities(Query);
+        }
 
         // Trigger this event to notify that the prop has changed (whenever setter is called).
         public event PropertyChangedEventHandler? PropertyChanged;
 
+        // Props bound to it will repond to the event.
         private void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));

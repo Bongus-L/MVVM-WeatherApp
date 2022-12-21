@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-E:\C#Projects\WeatherApp\WeatherApp\obj\Debug\net7.0-windows\
+E:\C#Projects\MVVM-WeatherApp\WeatherApp\obj\Debug\net7.0-windows\
 WeatherApp
 none
 false
 TRACE;DEBUG;NET;NET7_0;NETCOREAPP
-E:\C#Projects\WeatherApp\WeatherApp\App.xaml
+E:\C#Projects\MVVM-WeatherApp\WeatherApp\App.xaml
 11521446561
 
-9556963263
+10-21271661
 1992121765564
 View\WeatherWindow.xaml;
 
-True
+False
 
