@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WeatherApp.Model;
+using WeatherApp.ViewModel.Commands;
 using WeatherApp.ViewModel.Helpers;
 
 namespace WeatherApp.ViewModel
@@ -40,11 +41,38 @@ namespace WeatherApp.ViewModel
         public City SelectedCity
         {
             get { return selectedCity; }
-            set 
+            set
             { 
                 selectedCity = value; 
                 OnPropertyChanged("SelectedCity");
             }
+        }
+
+        public SearchCommand SearchCommand { get; set; }
+
+        public WeatherViewModel()
+        {
+            // Generate default weather info. Only display this when in design mode.
+            if (DesignerProperties.GetIsInDesignMode(new System.Windows.DependencyObject()))
+            {
+                SelectedCity = new City()
+                {
+                    LocalizedName = "London"
+                };
+                CurrentConditions = new CurrentConditions()
+                {
+                    WeatherText = "Snowy",
+                    Temperature = new Temperature
+                    {
+                        Metric = new Units
+                        {
+                            Value = 21
+                        }
+                    }
+                };
+            }
+
+            SearchCommand = new SearchCommand(this);
         }
 
         public async void MakeQuery()
