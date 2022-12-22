@@ -40,7 +40,7 @@ namespace WeatherApp.ViewModel.Helpers
 
             using (HttpClient client = new HttpClient()) 
             { 
-                var response = await client.GetAsync(autoCompleteEndpoint);
+                var response = await client.GetAsync(requestURL);
                 string json = await response.Content.ReadAsStringAsync();
                 // Even if you pass just one cityKey, the JSON will return a list. Hence List<> and .First() to get the first city.
                 currentConditions = JsonConvert.DeserializeObject<List<CurrentConditions>>(json).FirstOrDefault();

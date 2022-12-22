@@ -22,11 +22,12 @@
                     CommandParameter="{Binding Query}"
                     Margin="0 10" 
                     Content="Search"/>
-            <ListView>
+            <ListView ItemsSource="{Binding Cities}"
+                      SelectedValue="{Binding SelectedCity}">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <Grid>
-                            <TextBlock/>
+                            <TextBlock Text="{Binding LocalizedName}"/>
                         </Grid>
                     </DataTemplate>
                 </ListView.ItemTemplate>
@@ -50,12 +51,12 @@
                            FontSize="18"
                            Margin="20 0"/>
             </StackPanel>
-            <TextBlock Grid.Column="1" 
+            <TextBlock Grid.Column="1"
                        VerticalAlignment="Center"
-                       Text="{Binding Temperature.Imperial.Value, StringFormat={}{0}{degC}}"
                        Foreground="#f4f4f8"
                        FontSize="30"
-                       Margin="20 0"/>
+                       Margin="20 0"
+                       Text="{Binding Temperature.Metric.Value, StringFormat='{}{0}°C'}"/>
         </Grid>
     </Grid>
 </Window>

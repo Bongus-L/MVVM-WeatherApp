@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
@@ -26,6 +27,8 @@ namespace WeatherApp.ViewModel
             }
         }
 
+        public ObservableCollection<City> Cities { get; set; }
+
         private CurrentConditions currentConditions;
         public CurrentConditions CurrentConditions
         {
@@ -46,6 +49,7 @@ namespace WeatherApp.ViewModel
             { 
                 selectedCity = value; 
                 OnPropertyChanged("SelectedCity");
+                GetCurrentConditions();
             }
         }
 
@@ -72,19 +76,34 @@ namespace WeatherApp.ViewModel
                     }
                 };
             }
-
             SearchCommand = new SearchCommand(this);
+
+            // Instantiating the Cities list here because if you instantiate another one, binding will be lost.
+            Cities = new ObservableCollection<City>();
+        }
+
+        private async void GetCurrentConditions()
+        {
+            // Clear the Query and Cities because the item has been selected at this point.
+            Query = string.Empty;
+            Cities.Clear();
+            CurrentConditions = await AccuWeatherHelper.GetCurrentConditions(SelectedCity.Key);
         }
 
         public async void MakeQuery()
         {
             var cities = await AccuWeatherHelper.GetCities(Query);
+            Cities.Clear();
+            foreach (var city in cities) 
+            {
+                Cities.Add(city);
+            }
         }
 
         // Trigger this event to notify that the prop has changed (whenever setter is called).
         public event PropertyChangedEventHandler? PropertyChanged;
 
-        // Props bound to it will repond to the event.
+        // Props bound to it will respond to the event.
         private void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
