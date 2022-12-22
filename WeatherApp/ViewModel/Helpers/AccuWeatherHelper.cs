@@ -9,7 +9,7 @@ using WeatherApp.Model;
 
 namespace WeatherApp.ViewModel.Helpers
 {
-    // Helpers are ideal for things that are not necessarily related to one specific VM, so for example database connectivity can exist in a helper.
+    // Helpers are ideal for things that are not necessarily related to one specific VM. For example, database connectivity can exist in a helper.
     public class AccuWeatherHelper
     {
         public const string apiKey = "vMe4bnPWPw007GizM1EgwylgR13v5yqS";

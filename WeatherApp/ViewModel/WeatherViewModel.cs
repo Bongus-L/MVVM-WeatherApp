@@ -11,6 +11,7 @@ using WeatherApp.ViewModel.Helpers;
 namespace WeatherApp.ViewModel
 {
     // Using INotifyPropertyChanged, we don't have to access the element, text property etc and assign them thus reducing the amount of code.
+    // INotifyPropertyChanged will also let CommandParameter know of any changes which will then trigger the CanExecuteChanged event & CanExecute method.
     public class WeatherViewModel : INotifyPropertyChanged 
     {
         private string query;
