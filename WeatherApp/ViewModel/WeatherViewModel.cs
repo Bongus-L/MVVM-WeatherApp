@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using WeatherApp.Model;
 using WeatherApp.ViewModel.Commands;
 using WeatherApp.ViewModel.Helpers;
@@ -48,8 +43,11 @@ namespace WeatherApp.ViewModel
             set
             { 
                 selectedCity = value; 
-                OnPropertyChanged("SelectedCity");
-                GetCurrentConditions();
+                if(selectedCity != null)
+                {
+                    OnPropertyChanged("SelectedCity");
+                    GetCurrentConditions();
+                }
             }
         }
 
@@ -86,8 +84,8 @@ namespace WeatherApp.ViewModel
         {
             // Clear the Query and Cities because the item has been selected at this point.
             Query = string.Empty;
-            Cities.Clear();
             CurrentConditions = await AccuWeatherHelper.GetCurrentConditions(SelectedCity.Key);
+            Cities.Clear();
         }
 
         public async void MakeQuery()
